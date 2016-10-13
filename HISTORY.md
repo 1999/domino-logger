@@ -1,4 +1,8 @@
-## 2.1.1
+## 3.0.0
+
+ * **breaking change**: emitted error object is now a valid Error instance. `namespace` and `req` are now stored inside `err.data` property.
+
+## 2.1.x
 
  * **new**: you can now pass special `extra` object param to logger methods. It will be available as the fourth argument in `format()` function.
 

@@ -1,6 +1,6 @@
 {
   "name": "domino-logger",
-  "version": "2.1.1",
+  "version": "3.0.0",
   "description": "Logger for node.js apps used in Yandex.Mediaservices domino frontend",
   "main": "build.js",
   "repository": "https://github.com/1999/domino-logger.git",

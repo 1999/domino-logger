@@ -29,7 +29,6 @@ describe('domino-logger', () => {
     it('should emit errors by default', () => {
         const loggerFactory = dominoLogger(APP_NAME);
         const logger = loggerFactory();
-
         let error;
 
         logger.on('error', err => {
@@ -41,9 +40,19 @@ describe('domino-logger', () => {
             logger.error('Some kind of error');
         }).then(() => {
             assert.notStrictEqual(error, undefined, 'Error should exist');
-            assert.strictEqual(error.namespace, `${APP_NAME}:error`, `Namespace should be ${APP_NAME}:error`);
+            assert(error instanceof Error, 'Emitted argument is not an Error instance');
+
+            const serializedErr = String(error);
+            assert.strictEqual(serializedErr.includes('[object Object]'), false, `Serialized error value is wrong: ${serializedErr}`);
+
+            // breaking change with 2.x versions
+            assert.strictEqual(error.namespace, undefined, `Error namespace is unexpected: ${error.namespace}`);
+            assert.strictEqual(error.req, undefined, `Error req is unexpected: ${error.req}`);
+
             assert.strictEqual(error.message, 'Some kind of error', `Message text is unexpected: ${error.message}`);
-            assert.notStrictEqual(error.req, undefined, 'Request should be at least null');
+            assert.strictEqual(typeof error.data, 'object', 'Error data property is wrong');
+            assert.strictEqual(error.data.namespace, `${APP_NAME}:error`, `Namespace should be ${APP_NAME}:error`);
+            assert.notStrictEqual(error.data.req, undefined, 'Request should be at least null');
         });
     });
 

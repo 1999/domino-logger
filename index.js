@@ -34,11 +34,13 @@ class Logger extends EventEmitter {
 
     _emitError(namespace, message) {
         if (this._emitErrors) {
-            this.emit('error', {
+            const err = new Error(message);
+            err.data = {
                 namespace,
-                req: this._req,
-                message
-            });
+                req: this._req
+            };
+
+            this.emit('error', err);
         }
     }
 
