@@ -1,3 +1,7 @@
+## Unreleased
+
+ * Use latest dependencies
+
 ## 2.1.1
 
  * **new**: you can now pass special `extra` object param to logger methods. It will be available as the fourth argument in `format()` function.
