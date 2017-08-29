@@ -160,7 +160,7 @@ class DevelopmentLogger extends Logger {
     /**
      * @override
      */
-    _log({stream, namespace, method}, ...args) {
+    _log({namespace, method}, ...args) {
         let {message, extra} = this._splitArguments(...args);
         extra = extra && Object.keys(extra).length ? JSON.stringify(extra) : null;
         const line = [message, extra].filter(Boolean).join(' ');

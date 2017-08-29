@@ -148,7 +148,7 @@ describe('domino-logger NODE_ENV=production', () => {
         });
     });
 
-    it('logs with number and same string value should be equal', () => {
+    it('should have equal log string for records with number and same string value', () => {
         const extra = {foo: 'bar'};
         const loggerFactory = dominoLogger(APP_NAME);
         const logger = loggerFactory({
@@ -161,6 +161,10 @@ describe('domino-logger NODE_ENV=production', () => {
             logger.logNS('namespace', '42', extra);
         }).then(messages => {
             const stderrMessages = messages.get(process.stderr);
+
+            // messages can have a bit different timestamp, cut it
+            stderrMessages[0] = stderrMessages[0].replace(/^[^\t]+/, '');
+            stderrMessages[1] = stderrMessages[1].replace(/^[^\t]+/, '');
 
             assert.strictEqual(stderrMessages[0], stderrMessages[1], 'Messages should be equal');
         });
