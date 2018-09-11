@@ -23,7 +23,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "debug": "^3.0.1",
+    "debug": "^4.0.0",
     "moment": "^2.18.1"
   },
   "devDependencies": {
